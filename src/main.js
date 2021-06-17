@@ -8,7 +8,7 @@ import './assets/css/global.css'
 
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://192.168.3.88:8000/api/v1/'
+axios.defaults.baseURL = 'http://192.168.1.108:8002/api/v1/'
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config

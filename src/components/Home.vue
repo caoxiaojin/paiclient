@@ -8,8 +8,9 @@
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <el-container>
-      <el-aside width="200px">
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#ffd04b">
+      <el-aside width="isCollapse ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <el-menu  router  background-color="#333744" text-color="#fff" active-text-color="#ffd04b" unique-opened :collapse="isCollapse" :collapse-transition="false">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -28,9 +29,9 @@
               <el-menu-item index="1-4-1">选项1</el-menu-item>
             </el-submenu>
           </el-submenu>
-          <el-menu-item index="2">
+          <el-menu-item index="/user">
             <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <span slot="title">用户</span>
           </el-menu-item>
           <el-menu-item index="3" disabled>
             <i class="el-icon-document"></i>
@@ -43,14 +44,7 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-table :data="userData" border style="width: 100%">
-          <el-table-column prop="username" label="姓名" width="180"></el-table-column>
-          <el-table-column prop="alias" label="别名" width="180"></el-table-column>
-          <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
-          <el-table-column prop="is_superuser" label="管理员"></el-table-column>
-          <el-table-column prop="phone" label="电话"></el-table-column>
-          <el-table-column prop="phone" label="操作"></el-table-column>
-        </el-table>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -63,13 +57,19 @@ export default {
   },
   data () {
     return {
-      userData: []
+      userData: [],
+      isCollapse: false
     }
   },
   methods: {
     logout () {
       window.sessionStorage.clear()
       this.$router.push('/login')
+    },
+
+    // 控制菜单的折叠
+    toggleCollapse () {
+      this.isCollapse = !this.isCollapse
     },
 
     async getUserList () {
@@ -108,9 +108,22 @@ export default {
 
 .el-aside {
   background-color: #333744;
+  .el-menu {
+    border-right: none;
+  }
 }
 
 .el-main {
   background-color: #eaedf1;
+}
+
+.toggle-button {
+  background-color: #4A5064;
+  font-size: 10px;
+  line-height: 24px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
 }
 </style>
