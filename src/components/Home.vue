@@ -8,39 +8,31 @@
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <el-container>
-      <el-aside width="isCollapse ? '64px' : '200px'">
+<!--      <el-aside width="isCollapse ? '64px' : '200px'">-->
+      <el-aside width="200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
-        <el-menu  router  background-color="#333744" text-color="#fff" active-text-color="#ffd04b" unique-opened :collapse="isCollapse" :collapse-transition="false">
-          <el-submenu index="1">
+        <el-menu  router :default-active="activePath"  background-color="#333744" text-color="#fff" active-text-color="#409EEF" unique-opened :collapse="isCollapse" :collapse-transition="false">
+<!--          一级菜单-->
+          <el-submenu :index="'/' + item.path" v-for="item in menulist" :key="item.id">
+<!--            一集菜单的模板区域-->
             <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <i :class="item.icon"></i>
+              <span>{{item.name}}</span>
             </template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
+<!--            二级菜单-->
+            <el-menu-item :index="'/' + submenu.path" v-for="submenu in item.children" :key="submenu.id" @click="saveNavState('/' + submenu.path)">
+              <template slot="title">
+                <i :class="submenu.icon"></i>
+                <span>{{submenu.name}}</span>
+              </template>
+<!--              <el-menu-item :index="subitem.id + ''" v-for="subitem in submenu.children" :key="subitem.id">-->
+<!--                <template>-->
+<!--                  <i class="subitem.icon"></i>-->
+<!--                  <span>{{subitem.name}}</span>-->
+<!--                </template>-->
+<!--              </el-menu-item>-->
+            </el-menu-item>
           </el-submenu>
-          <el-menu-item index="/user">
-            <i class="el-icon-menu"></i>
-            <span slot="title">用户</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
@@ -54,11 +46,14 @@
 export default {
   created () {
     this.getUserList()
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   data () {
     return {
+      menulist: [],
       userData: [],
-      isCollapse: false
+      isCollapse: false,
+      activePath: ''
     }
   },
   methods: {
@@ -73,10 +68,13 @@ export default {
     },
 
     async getUserList () {
-      const { data: res } = await this.$http.get('userinfo')
-      console.log(res)
+      const { data: res } = await this.$http.get('menu')
       if (res.codo !== 200) return this.$message.error(res.msg)
-      this.userData = res.data
+      this.menulist = res.data.valid
+    },
+    saveNavState (activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
     }
   }
 }
