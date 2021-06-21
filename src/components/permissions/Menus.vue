@@ -23,6 +23,28 @@
         </el-table-column>
       </el-table>
     </el-card>
+
+    <!-- 修改菜单的对话框 -->
+    <el-dialog title="修改菜单信息" :visible.sync="editDialogVisible"
+               width="50%" @close="editDialogClosed">
+      <!-- 内容主体 -->
+      <el-form :model="editMenuForm" ref="editMenuFormRef"
+               :rules="editMenuFormRules" label-width="70px">
+        <el-form-item label="权限名称" prop="name">
+          <el-input v-model="editMenuForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="权限路径" prop="path">
+          <el-input v-model="editMenuForm.path"></el-input>
+        </el-form-item>
+        <el-form-item label="图标" prop="icon">
+          <el-input v-model="editMenuForm.icon"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editUser">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </div>
 </template>
@@ -31,7 +53,9 @@
 export default {
   data () {
     return {
-      menuList: []
+      menuList: [],
+      editDialogVisible: false,
+      editMenuForm: {}
     }
   },
   created () {
@@ -39,11 +63,15 @@ export default {
   },
   methods: {
     async getMenuList () {
-      const { data: res } = await this.$http.get('suppermenu?menu=list')
+      const { data: res } = await this.$http.get('user/supper?menu=list')
       if (res.codo !== 200) {
         return this.$message.error(res.msg)
       }
       this.menuList = res.data
+    },
+    showEditDialog (row) {
+      this.editMenuForm = row
+      this.editDialogVisible = true
     }
   }
 }

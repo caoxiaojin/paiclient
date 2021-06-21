@@ -25,12 +25,7 @@
         <el-table-column label="别名" prop="alias"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
         <el-table-column label="电话" prop="phone"></el-table-column>
-        <el-table-column label="管理员">
-          <template slot-scope="scope">
-            <el-switch v-model="scope.row.is_superuser">
-            </el-switch>
-          </template>
-        </el-table-column>
+        <el-table-column label="角色" prop="role"></el-table-column>
         <el-table-column label="激活">
           <template slot-scope="scope">
             <el-switch v-model="scope.row.is_active" @change="userStageChanged(scope.row)">
@@ -112,7 +107,7 @@
       :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDIalogClosed">
       <div>
         <p>当前用户: {{userInfo.username}}</p>
-        <p>当前角色: {{userInfo.username}}</p>
+        <p>当前角色: {{userInfo.role}}</p>
         <p>分配新角色:
           <el-select v-model="selectedRolesId" placeholder="请选择">
             <el-option
@@ -216,7 +211,7 @@ export default {
   },
   methods: {
     async getUserList () {
-      const { data: res } = await this.$http.get('userinfo', { params: this.queryInfo })
+      const { data: res } = await this.$http.get('user/userinfo', { params: this.queryInfo })
       if (res.codo !== 200) return this.$message.error(res.msg)
       this.userlist = res.data
       this.total = res.count
@@ -243,7 +238,7 @@ export default {
       // 提交请求前，表单预验证
       this.$refs.addUserFormRef.validate(async valid => {
         if (!valid) return
-        const { data: res } = await this.$http.post('userinfo', this.addUserForm)
+        const { data: res } = await this.$http.post('user/userinfo', this.addUserForm)
         if (res.codo === 200) {
           this.$message.success(res.msg)
           // 隐藏添加用户对话框
@@ -255,8 +250,7 @@ export default {
       })
     },
     async userStageChanged (userinfo) {
-      console.log(userinfo)
-      const { data: res } = await this.$http.put(`userinfo/active?user=${userinfo.id}&active=${userinfo.is_active}`)
+      const { data: res } = await this.$http.put(`user/active?user=${userinfo.id}&active=${userinfo.is_active}`)
       if (res.codo !== 200) {
         userinfo.is_active = !userinfo.is_active
         return this.$message.error(res.msg)
@@ -272,7 +266,7 @@ export default {
         // 表单预校验失败
         if (!valid) return
         const { data: res } = await this.$http.put(
-          'userinfo?user=' + this.editUserForm.username,
+          'user/userinfo?user=' + this.editUserForm.username,
           {
             alias: this.editUserForm.alias,
             email: this.editUserForm.email,
@@ -303,7 +297,7 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-      const { data: res } = await this.$http.delete('userinfo?user=' + username)
+      const { data: res } = await this.$http.delete('user/userinfo?user=' + username)
       if (res.codo !== 200) return this.$message.error(res.msg)
       this.$message.success('删除用户成功！')
       this.getUserList()
@@ -314,7 +308,7 @@ export default {
     },
     async setRole (userInfo) {
       this.userInfo = userInfo
-      const { data: res } = await this.$http.get('roles')
+      const { data: res } = await this.$http.get('user/roles')
       if (res.codo !== 200) return this.$message.error(res.msg)
       this.rolesList = res.data
       this.setRoleDialogVisible = true
@@ -323,7 +317,7 @@ export default {
       if (!this.selectedRolesId) {
         return this.$message.error('请选择要分配的角色')
       }
-      const { data: res } = await this.$http.put(`usersrole?userid=${this.userInfo.id}/role`, { rid: this.selectedRolesId })
+      const { data: res } = await this.$http.put(`user/role?userid=${this.userInfo.id}`, { roleid: this.selectedRolesId })
       if (res.codo !== 200) return this.$message.error(res.msg)
       this.$message.success(res.msg)
       this.getUserList()

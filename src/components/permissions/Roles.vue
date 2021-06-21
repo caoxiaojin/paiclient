@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     async getRoleList () {
-      const { data: res } = await this.$http.get('userinfo/roles', { params: this.queryInfo })
+      const { data: res } = await this.$http.get('user/roles', { params: this.queryInfo })
       if (res.codo !== 200) return this.$message.error(res.msg)
       this.rolesList = res.data
       this.total = res.count
@@ -149,13 +149,15 @@ export default {
     addRoles () {
       this.$refs.addRoleFormRef.validate(async valid => {
         if (!valid) return
-        const { data: res } = await this.$http.post('userinfo/roles', this.addRoleForm)
+        const { data: res } = await this.$http.post('user/roles', this.addRoleForm)
         if (res.codo !== 200) {
           this.$message.error(res.msg)
         }
-        this.$message.success(res.msg)
-        this.AddRoleDialogVisible = false
-        this.getRolesList()
+        if (res.codo === 200) {
+          this.$message.success(res.msg)
+          this.AddRoleDialogVisible = false
+          this.getRoleList()
+        }
       })
     },
 
@@ -170,7 +172,7 @@ export default {
       this.getRoleList()
     },
     async ExpandChange (row) {
-      const { data: res } = await this.$http.get('menupermissions?name=' + row.name)
+      const { data: res } = await this.$http.get('user/permissions?name=' + row.name)
       if (res.codo === 401) {
         this.$message.warning(res.msg)
       }
@@ -194,11 +196,10 @@ export default {
       if (confirResult !== 'confirm') {
         return this.$message.info('取消了删除')
       }
-      const { data: res } = await this.$http.delete(`menupermissions?name=${name}&meid=${meid}`)
+      const { data: res } = await this.$http.delete(`user/permissions?name=${name}&meid=${meid}`)
       if (res.codo === 200) {
         this.$message.success(res.msg)
-        this.getMenupermissions(name)
-        // this.menupermissions = res.codo.data
+        this.roleMenuPermission = res.data
       } else {
         this.$message.error(res.msg)
       }
@@ -206,14 +207,19 @@ export default {
 
     // 分配权限
     async showSetPermissionDialog (role) {
-      const { data: res } = await this.$http.get('suppermenu?menu=tree')
+      const { data: res } = await this.$http.get(`user/menuid?name=${role.name}`)
       if (res.codo !== 200) {
         return this.$message.error(res.msg)
       }
-      this.menuList = res.data.valid
+      this.defKeys = res.data
+      const { data: res1 } = await this.$http.get('user/supper?menu=tree')
+      if (res1.codo !== 200) {
+        return this.$message.error(res1.msg)
+      }
+      this.rolename = role.name
+      this.menuList = res1.data.valid
       // role应该是该角色的详细信息进行递归，然后保存在数组中。可在后端完成
-      this.getLeafKeys(role, this.defKeys)
-      console.log(this.menuList)
+      // this.getLeafKeys(role, this.defKeys)
       this.setPermissionDialogVisible = true
     },
     // 如果当前node节点不包含children属性，则是三级节点
@@ -229,8 +235,9 @@ export default {
     async allowPermission () {
       const keys = [...this.$refs.treeRef.getCheckedKeys(), ...this.$refs.treeRef.getHalfCheckedKeys()]
       console.log(keys)
-      const idStr = keys.join(',')
-      const { data: res } = await this.$http.post(`permission?name=${this.rolename}`, { rids: idStr })
+      // const idStr = keys.join(',')
+      // const { data: res } = await this.$http.post(`user/permissions?name=${this.rolename}`, { rids: idStr })
+      const { data: res } = await this.$http.post(`user/permissions?name=${this.rolename}`, { meids: keys })
       if (res.codo !== 200) {
         this.$message.error(res.msg)
       } else {

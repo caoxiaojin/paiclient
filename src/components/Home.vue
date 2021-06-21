@@ -68,7 +68,7 @@ export default {
     },
 
     async getUserList () {
-      const { data: res } = await this.$http.get('menu')
+      const { data: res } = await this.$http.get('user/menu')
       if (res.codo !== 200) return this.$message.error(res.msg)
       this.menulist = res.data.valid
     },
