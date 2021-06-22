@@ -212,7 +212,7 @@ export default {
         return this.$message.error(res.msg)
       }
       this.defKeys = res.data
-      const { data: res1 } = await this.$http.get('user/supper?menu=tree')
+      const { data: res1 } = await this.$http.get('user/allmenu?menu=tree')
       if (res1.codo !== 200) {
         return this.$message.error(res1.msg)
       }
