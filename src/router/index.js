@@ -6,6 +6,10 @@ import Welcome from '@/components/Welcome'
 import Users from '@/components/user/Users'
 import Menus from '@/components/permissions/Menus'
 import Roles from '@/components/permissions/Roles'
+import Scdata from '@/components/configure/Scdata'
+import Ucdata from '@/components/configure/Ucdata'
+import SearchIp from '@/components/address/SearchIp'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,7 +23,10 @@ const routes = [
       { path: '/welcome', component: Welcome },
       { path: '/users', component: Users },
       { path: '/menus', component: Menus },
-      { path: '/roles', component: Roles }
+      { path: '/roles', component: Roles },
+      { path: '/scdata', component: Scdata },
+      { path: '/ucdata', component: Ucdata },
+      { path: '/address/searchip', component: SearchIp }
     ]
   }
 ]

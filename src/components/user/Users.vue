@@ -259,7 +259,7 @@ export default {
     },
 
     // 修改用户信息
-    editUser () {
+    async editUser () {
       // 提交请求前，表单预验证
       this.$refs.editUserFormRef.validate(async valid => {
         // console.log(valid)
