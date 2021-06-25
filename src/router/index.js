@@ -9,6 +9,7 @@ import Roles from '@/components/permissions/Roles'
 import Scdata from '@/components/configure/Scdata'
 import Ucdata from '@/components/configure/Ucdata'
 import SearchIp from '@/components/address/SearchIp'
+import Visit from '@/components/audit/Visit'
 
 Vue.use(VueRouter)
 
@@ -21,12 +22,13 @@ const routes = [
     redirect: '/welcome',
     children: [
       { path: '/welcome', component: Welcome },
-      { path: '/users', component: Users },
-      { path: '/menus', component: Menus },
-      { path: '/roles', component: Roles },
-      { path: '/scdata', component: Scdata },
-      { path: '/ucdata', component: Ucdata },
-      { path: '/address/searchip', component: SearchIp }
+      { path: '/user/users', component: Users },
+      { path: '/user/menus', component: Menus },
+      { path: '/user/roles', component: Roles },
+      { path: '/configure/scdata', component: Scdata },
+      { path: '/configure/ucdata', component: Ucdata },
+      { path: '/address/searchip', component: SearchIp },
+      { path: '/audit/visit', component: Visit }
     ]
   }
 ]

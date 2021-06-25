@@ -66,11 +66,9 @@ export default {
     async getSearchip () {
       const { data: res } = await this.$http.get('ipinfo/search', { params: this.queryInfo })
       if (res.codo !== 200) return this.$message.error(res.msg)
-      console.log(res.data.ppiosearch)
       this.ppiosearch = res.data.ppiosearch
       this.search138 = res.data.search138
       this.taobaosearch = res.data.iptaobao
-      // this.total = res.count
     }
   }
 }
