@@ -121,7 +121,6 @@ export default {
   methods: {
     async getconfigList () {
       const { data: res } = await this.$http.get('configure/common', { params: this.queryInfo })
-      console.log(res)
       if (res.codo !== 200) {
         return this.$message.error(res.msg)
       }
@@ -145,6 +144,7 @@ export default {
       this.$refs.addConfigFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('configure/common', this.addConfigForm)
+        console.log(res)
         if (res.codo === 200) {
           this.$message.success(res.msg)
           // 隐藏添加用户对话框

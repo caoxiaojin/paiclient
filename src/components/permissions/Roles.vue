@@ -234,7 +234,7 @@ export default {
     },
     async allowPermission () {
       const keys = [...this.$refs.treeRef.getCheckedKeys(), ...this.$refs.treeRef.getHalfCheckedKeys()]
-      console.log(keys)
+      // console.log(keys)
       // const idStr = keys.join(',')
       // const { data: res } = await this.$http.post(`user/permissions?name=${this.rolename}`, { rids: idStr })
       const { data: res } = await this.$http.post(`user/permissions?name=${this.rolename}`, { meids: keys })

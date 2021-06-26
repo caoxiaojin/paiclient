@@ -30,7 +30,13 @@ import {
   MessageBox,
   Select,
   Option,
-  DatePicker
+  DatePicker,
+  Alert,
+  Steps,
+  Step,
+  Tabs,
+  TabPane,
+  Cascader
 } from 'element-ui'
 
 Vue.use(Button)
@@ -61,5 +67,11 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(DatePicker)
+Vue.use(Alert)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Cascader)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

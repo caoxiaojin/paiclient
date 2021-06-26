@@ -114,7 +114,6 @@ export default {
   methods: {
     async getconfigList () {
       const { data: res } = await this.$http.get('configure/system', { params: this.queryInfo })
-      console.log(res)
       if (res.codo !== 200) {
         return this.$message.error(res.msg)
       }

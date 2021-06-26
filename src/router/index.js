@@ -10,6 +10,8 @@ import Scdata from '@/components/configure/Scdata'
 import Ucdata from '@/components/configure/Ucdata'
 import SearchIp from '@/components/address/SearchIp'
 import Visit from '@/components/audit/Visit'
+import Process from '@/components/address/Process'
+import Report from '@/components/address/Report'
 
 Vue.use(VueRouter)
 
@@ -28,7 +30,9 @@ const routes = [
       { path: '/configure/scdata', component: Scdata },
       { path: '/configure/ucdata', component: Ucdata },
       { path: '/address/searchip', component: SearchIp },
-      { path: '/audit/visit', component: Visit }
+      { path: '/audit/visit', component: Visit },
+      { path: '/Process', component: Process },
+      { path: '/report', component: Report }
     ]
   }
 ]
