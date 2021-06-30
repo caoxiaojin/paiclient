@@ -121,7 +121,7 @@ export default {
   methods: {
     async getconfigList () {
       const { data: res } = await this.$http.get('configure/common', { params: this.queryInfo })
-      if (res.codo !== 200) {
+      if (res.code !== 200) {
         return this.$message.error(res.msg)
       }
       this.configList = res.data
@@ -145,7 +145,7 @@ export default {
         if (!valid) return
         const { data: res } = await this.$http.post('configure/common', this.addConfigForm)
         console.log(res)
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.$message.success(res.msg)
           // 隐藏添加用户对话框
           this.addDialogVisible = false
@@ -165,7 +165,7 @@ export default {
         const { data: res } = await this.$http.put(
           'configure/common?project=' + this.editConfigForm.project + '&service=' + this.editConfigForm.service + '&filename=' + this.editConfigForm.filename,
           { content: this.editConfigForm.content })
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.editDialogVisible = false
           this.$message.success(res.msg)
           this.getconfigList()
@@ -191,7 +191,7 @@ export default {
         return this.$message.info('已取消删除')
       }
       const { data: res } = await this.$http.delete('configure/common?project=' + row.project + '&service=' + row.service + '&filename=' + row.filename)
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.$message.success(res.msg)
       this.getconfigList()
     }

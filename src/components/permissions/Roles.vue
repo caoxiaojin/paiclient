@@ -173,7 +173,7 @@ export default {
     },
     async ExpandChange (row) {
       const { data: res } = await this.$http.get('user/permissions?name=' + row.name)
-      if (res.codo === 401) {
+      if (res.code === 401) {
         this.$message.warning(res.msg)
       }
       this.roleMenuPermission = res.data
@@ -181,14 +181,14 @@ export default {
 
     async getMenupermissions (name) {
       const { data: res } = await this.$http.get('menupermissions?name=' + name)
-      if (res.codo === 401) {
+      if (res.code === 401) {
         this.$message.warning(res.msg)
       }
       this.roleMenuPermission = res.data
     },
 
     async removeApiPermissionByid (name, meid) {
-      const confirResult = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      const confirResult = await this.$confirm('此操作将永久删除该权限, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -208,12 +208,12 @@ export default {
     // 分配权限
     async showSetPermissionDialog (role) {
       const { data: res } = await this.$http.get(`user/menuid?name=${role.name}`)
-      if (res.codo !== 200) {
+      if (res.code !== 200) {
         return this.$message.error(res.msg)
       }
       this.defKeys = res.data
       const { data: res1 } = await this.$http.get('user/allmenu?menu=tree')
-      if (res1.codo !== 200) {
+      if (res1.code !== 200) {
         return this.$message.error(res1.msg)
       }
       this.rolename = role.name
@@ -238,7 +238,7 @@ export default {
       // const idStr = keys.join(',')
       // const { data: res } = await this.$http.post(`user/permissions?name=${this.rolename}`, { rids: idStr })
       const { data: res } = await this.$http.post(`user/permissions?name=${this.rolename}`, { meids: keys })
-      if (res.codo !== 200) {
+      if (res.code !== 200) {
         this.$message.error(res.msg)
       } else {
         this.$message.success(res.msg)

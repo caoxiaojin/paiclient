@@ -62,7 +62,7 @@ export default {
   methods: {
     async getMenuList () {
       const { data: res } = await this.$http.get('user/allmenu?menu=list')
-      if (res.codo !== 200) {
+      if (res.code !== 200) {
         return this.$message.error(res.msg)
       }
       this.menuList = res.data

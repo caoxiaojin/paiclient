@@ -36,7 +36,8 @@ import {
   Step,
   Tabs,
   TabPane,
-  Cascader
+  Cascader,
+  Divider
 } from 'element-ui'
 
 Vue.use(Button)
@@ -73,5 +74,6 @@ Vue.use(Step)
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Cascader)
+Vue.use(Divider)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

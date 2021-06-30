@@ -114,7 +114,7 @@ export default {
   methods: {
     async getconfigList () {
       const { data: res } = await this.$http.get('configure/system', { params: this.queryInfo })
-      if (res.codo !== 200) {
+      if (res.code !== 200) {
         return this.$message.error(res.msg)
       }
       this.configList = res.data
@@ -137,7 +137,7 @@ export default {
       this.$refs.addConfigFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('configure/system', this.addConfigForm)
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.$message.success(res.msg)
           // 隐藏添加用户对话框
           this.addDialogVisible = false
@@ -157,7 +157,7 @@ export default {
         const { data: res } = await this.$http.put(
           'configure/system?project=' + this.editConfigForm.project + '&filename=' + this.editConfigForm.filename,
           { content: this.editConfigForm.content })
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.editDialogVisible = false
           this.$message.success(res.msg)
           this.getconfigList()
@@ -183,7 +183,7 @@ export default {
         return this.$message.info('已取消删除')
       }
       const { data: res } = await this.$http.delete('configure/system?project=' + row.project + '&filename=' + row.filename)
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.$message.success(res.msg)
       this.getconfigList()
     }

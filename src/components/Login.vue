@@ -49,7 +49,7 @@ export default {
         if (!valid) return
         const { data: res } = await this.$http.post('user/login', this.loginForm)
         console.log(res)
-        if (res.codo !== 200) return this.$message.error(res.msg)
+        if (res.code !== 200) return this.$message.error(res.msg)
         this.$message.success(res.msg)
         window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')

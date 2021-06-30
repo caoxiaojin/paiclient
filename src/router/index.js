@@ -10,8 +10,14 @@ import Scdata from '@/components/configure/Scdata'
 import Ucdata from '@/components/configure/Ucdata'
 import SearchIp from '@/components/address/SearchIp'
 import Visit from '@/components/audit/Visit'
+import VisitReport from '@/components/audit/VisitReport'
 import Process from '@/components/address/Process'
-import Report from '@/components/address/Report'
+import Machine from '@/components/resource/Machine'
+import Label from '@/components/resource/Label'
+import MachineDetail from '@/components/resource/MachineDetail'
+import Template from '@/components/publish/Template'
+import Command from '@/components/publish/Command'
+import Script from '@/components/publish/Script'
 
 Vue.use(VueRouter)
 
@@ -30,9 +36,15 @@ const routes = [
       { path: '/configure/scdata', component: Scdata },
       { path: '/configure/ucdata', component: Ucdata },
       { path: '/address/searchip', component: SearchIp },
+      { path: '/address/process', component: Process },
       { path: '/audit/visit', component: Visit },
-      { path: '/Process', component: Process },
-      { path: '/report', component: Report }
+      { path: '/audit/visitreport', component: VisitReport },
+      { path: '/resource/machine', component: Machine },
+      { path: '/resource/machine/:id', component: MachineDetail },
+      { path: '/publish/template', component: Template },
+      { path: '/publish/command', component: Command },
+      { path: '/publish/script', component: Script },
+      { path: '/resource/label', component: Label }
     ]
   }
 ]

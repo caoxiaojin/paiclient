@@ -212,7 +212,7 @@ export default {
   methods: {
     async getUserList () {
       const { data: res } = await this.$http.get('user/userinfo', { params: this.queryInfo })
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.userlist = res.data
       this.total = res.count
     },
@@ -239,7 +239,7 @@ export default {
       this.$refs.addUserFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('user/userinfo', this.addUserForm)
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.$message.success(res.msg)
           // 隐藏添加用户对话框
           this.addDialogVisible = false
@@ -273,7 +273,7 @@ export default {
             phone: this.editUserForm.phone
           }
         )
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.editDialogVisible = false
           this.$message.success(res.msg)
           this.getUserList()
@@ -298,7 +298,7 @@ export default {
         return this.$message.info('已取消删除')
       }
       const { data: res } = await this.$http.delete('user/userinfo?user=' + username)
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.$message.success('删除用户成功！')
       this.getUserList()
     },
@@ -309,7 +309,7 @@ export default {
     async setRole (userInfo) {
       this.userInfo = userInfo
       const { data: res } = await this.$http.get('user/roles')
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.rolesList = res.data
       this.setRoleDialogVisible = true
     },
@@ -318,7 +318,7 @@ export default {
         return this.$message.error('请选择要分配的角色')
       }
       const { data: res } = await this.$http.put(`user/role?userid=${this.userInfo.id}`, { roleid: this.selectedRolesId })
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.$message.success(res.msg)
       this.getUserList()
       this.setRoleDialogVisible = false
