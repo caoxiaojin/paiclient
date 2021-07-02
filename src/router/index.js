@@ -18,6 +18,8 @@ import MachineDetail from '@/components/resource/MachineDetail'
 import Template from '@/components/publish/Template'
 import Command from '@/components/publish/Command'
 import Script from '@/components/publish/Script'
+import AddTemplate from '@/components/publish/AddTemplate'
+import Jenkins from '@/components/integration/Jenkins'
 
 Vue.use(VueRouter)
 
@@ -40,11 +42,13 @@ const routes = [
       { path: '/audit/visit', component: Visit },
       { path: '/audit/visitreport', component: VisitReport },
       { path: '/resource/machine', component: Machine },
+      { path: '/resource/label', component: Label },
       { path: '/resource/machine/:id', component: MachineDetail },
       { path: '/publish/template', component: Template },
+      { path: '/publish/template/add', component: AddTemplate },
       { path: '/publish/command', component: Command },
       { path: '/publish/script', component: Script },
-      { path: '/resource/label', component: Label }
+      { path: '/integration/jenkins', component: Jenkins }
     ]
   }
 ]

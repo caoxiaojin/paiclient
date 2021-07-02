@@ -13,31 +13,10 @@
         </el-input>
       </el-col>
       <el-col :span="4">
-        <el-button type="primary" @click="addDialogVisible = true">添加模板</el-button>
+        <router-link :to="{ path: '/publish/template/add' }"><el-button type="primary">添加模板</el-button></router-link>
       </el-col>
     </el-row>
   </el-card>
-  <el-dialog title="添加模板" :visible.sync="addDialogVisible"
-             width="50%" @close="addDialogClosed">
-    <el-form :model="addTemplateForm" :rules="addTemplateFormRules" ref="addTemplateFormRef" label-width="70px">
-      <el-form-item label="模板名" prop="name">
-        <el-input v-model="addTemplateForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="数据" prop="data">
-        <el-input v-model="addTemplateForm.data"></el-input>
-      </el-form-item>
-      <el-form-item label="版本" prop="version">
-        <el-input v-model="addTemplateForm.version"></el-input>
-      </el-form-item>
-      <el-form-item label="标签组" prop="label">
-        <el-input v-model="addTemplateForm.label"></el-input>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addTemplate">确 定</el-button>
-      </span>
-  </el-dialog>
 </div>
 </template>
 
@@ -48,10 +27,7 @@ export default {
       queryInfo: {
         query: ''
       },
-      templateList: [],
-      addDialogVisible: false,
-      addTemplateForm: {},
-      addTemplateFormRules: {}
+      templateList: []
     }
   },
   created () {},
