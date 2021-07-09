@@ -65,7 +65,7 @@
         <el-input v-model="editConfigForm.filename" disabled></el-input>
       </el-form-item>
       <el-form-item label="内容" prop="content">
-        <el-input v-model="editConfigForm.content"></el-input>
+        <el-input type="textarea" v-model="editConfigForm.content"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">

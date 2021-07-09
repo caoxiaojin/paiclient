@@ -138,7 +138,7 @@ export default {
   methods: {
     async getRoleList () {
       const { data: res } = await this.$http.get('user/roles', { params: this.queryInfo })
-      if (res.codo !== 200) return this.$message.error(res.msg)
+      if (res.code !== 200) return this.$message.error(res.msg)
       this.rolesList = res.data
       this.total = res.count
     },
@@ -150,10 +150,10 @@ export default {
       this.$refs.addRoleFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('user/roles', this.addRoleForm)
-        if (res.codo !== 200) {
+        if (res.code !== 200) {
           this.$message.error(res.msg)
         }
-        if (res.codo === 200) {
+        if (res.code === 200) {
           this.$message.success(res.msg)
           this.AddRoleDialogVisible = false
           this.getRoleList()

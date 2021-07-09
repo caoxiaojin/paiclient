@@ -8,6 +8,8 @@ import Menus from '@/components/permissions/Menus'
 import Roles from '@/components/permissions/Roles'
 import Scdata from '@/components/configure/Scdata'
 import Ucdata from '@/components/configure/Ucdata'
+import MissionLabel from '@/components/configure/MissionLabel'
+import MissionLabelDetail from '@/components/configure/MissionLabelDetail'
 import SearchIp from '@/components/address/SearchIp'
 import Visit from '@/components/audit/Visit'
 import VisitReport from '@/components/audit/VisitReport'
@@ -20,6 +22,13 @@ import Command from '@/components/publish/Command'
 import Script from '@/components/publish/Script'
 import AddTemplate from '@/components/publish/AddTemplate'
 import Jenkins from '@/components/integration/Jenkins'
+import Deployment from '@/components/container/Deployment'
+import Statefulsets from '@/components/container/Statefulsets'
+import Service from '@/components/container/Service'
+import Routes from '@/components/container/Routes'
+import Configmap from '@/components/container/Configmap'
+import Secret from '@/components/container/Secret'
+import Pod from '@/components/container/Pod'
 
 Vue.use(VueRouter)
 
@@ -37,6 +46,8 @@ const routes = [
       { path: '/user/roles', component: Roles },
       { path: '/configure/scdata', component: Scdata },
       { path: '/configure/ucdata', component: Ucdata },
+      { path: '/configure/label', component: MissionLabel },
+      { path: '/configure/label/:name', component: MissionLabelDetail },
       { path: '/address/searchip', component: SearchIp },
       { path: '/address/process', component: Process },
       { path: '/audit/visit', component: Visit },
@@ -48,7 +59,14 @@ const routes = [
       { path: '/publish/template/add', component: AddTemplate },
       { path: '/publish/command', component: Command },
       { path: '/publish/script', component: Script },
-      { path: '/integration/jenkins', component: Jenkins }
+      { path: '/integration/jenkins', component: Jenkins },
+      { path: '/container/deployment', component: Deployment },
+      { path: '/container/statefulsets', component: Statefulsets },
+      { path: '/container/service', component: Service },
+      { path: '/container/routes', component: Routes },
+      { path: '/container/configmap', component: Configmap },
+      { path: '/container/secret', component: Secret },
+      { path: '/container/pods', component: Pod }
     ]
   }
 ]
