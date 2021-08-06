@@ -42,7 +42,8 @@ export default {
     },
     initSocket () {
       // const url = window.location.href
-      const mysocker = 'ws://192.168.3.79:8002/api/cluster=' + window.sessionStorage.getItem('cluster') + '&namespace=' + window.sessionStorage.getItem('namespace') + '&pod=' + this.$route.params.pod
+      // const mysocker = 'ws://192.168.3.74:8002/api/cluster=' + window.sessionStorage.getItem('cluster') + '&namespace=' + window.sessionStorage.getItem('namespace') + '&pod=' + this.$route.params.pod
+      const mysocker = 'ws://192.168.3.74:8002/api/machineid=e08f19ee3ef344eabb53c24e83260002'
       this.socket = new WebSocket(mysocker)
       this.socketOnClose()
       this.socketOnOpen()
