@@ -2,7 +2,7 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <img src="../assets/logo.png" alt="">
+        <img src="../assets/logo.bak.png" alt="">
         <span>平台运维管理系统</span>
       </div>
       <el-button type="info" @click="logout">退出</el-button>

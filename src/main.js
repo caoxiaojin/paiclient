@@ -17,7 +17,7 @@ import 'nprogress/nprogress.css'
 
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://192.168.1.108:8002/api/v1/'
+axios.defaults.baseURL = 'http://192.168.3.79:8002/api/v1/'
 axios.interceptors.request.use(config => {
   Nprogress.start()
   config.headers.Authorization = window.sessionStorage.getItem('token')

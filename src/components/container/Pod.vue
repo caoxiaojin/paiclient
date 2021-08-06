@@ -40,7 +40,8 @@
       <el-table-column label="操作" width="180px">
         <template slot-scope="scopre">
           <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scopre.row)"></el-button>
-          <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUser(scopre.row.username)"></el-button>
+          <el-button type="primary" size="mini" @click="webssh(scopre.row)">进入</el-button>
+          <el-button type="danger" icon="el-icon-delete" size="mini" @click="delPod(scopre.row.name)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -105,6 +106,11 @@ export default {
       this.podsList = res.data
       this.total = res.count
     },
+    async delPod (podname) {
+      const { data: res } = await this.$http.delete(`container/pod?cluster=${this.cluster}&namespace=${this.namespace}&name=${podname}`)
+      if (res.code !== 200) return this.$message.error(res.msg)
+      await this.getpodList()
+    },
     // 监听pagesize改变的事件
     handleSizeChange (newSize) {
       this.queryInfo.pageSize = newSize
@@ -114,6 +120,12 @@ export default {
     handleCurrentChange (newPage) {
       this.queryInfo.page = newPage
       this.getpodList()
+    },
+    webssh (row) {
+      const podname = row.name
+      const url = '#container/terminal/' + podname
+      console.log(url)
+      window.open(url)
     }
   }
 }
